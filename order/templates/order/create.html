@@ -1,0 +1,33 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<div class="basket-container">
+    <h1 class="title">Оформление заказа</h1>
+    <div class="form-order">
+                <form action="." method="post" class="order-form">
+                        {% csrf_token %}
+                   {{ form.non_field_errors }}
+                  <div class="form-inline">
+                      {% for f in form %}
+                    <div class="form-p">
+                      <p class="authentication-text"><label class="form-label" for="{{ f.id_for_label }}">{{f.label}} </label>{{ f }}</p>
+                    </div>
+                      {{ f.errors }}
+                      {% endfor %}
+                      <ul class="errorlist">
+                        <li>{{error}}</li>
+                      </ul>
+
+                    <div class="form-p">
+                  <button
+                    class="product__btn product__btn-one basket-delete"
+                    type="submit"
+                  >
+                    Оформить заказ
+                  </button>
+                    </div>
+                  </div>
+               </form>
+    </div>
+</div>
+{% endblock %}

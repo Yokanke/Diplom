@@ -1,0 +1,12 @@
+{% extends "store/base.html" %}
+
+{% block title %}Thank you{% endblock %}
+
+{% block content %}
+      <div class="fashion_section">
+        <div class="container">
+            <h1 class="fashion_taital">Заказ успешно оформлен!</h1>
+            <a href="{% url 'homepage' %}"><input class="add-to-cart btn btn-default neutral" type="submit" value="Вернуться на главную"></a>
+        </div>
+      </div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<div class="basket-container">
+	<div class="Header">
+		<h3 class="Heading">Корзина</h3>
+
+		{%if not basket %}
+			<p align="center" style="margin-top: 20px;">Корзина пуста</p>
+		{% endif %}
+	</div>
+	<div class="CartContainer">
+
+		{% for b in basket %}
+		<div class="Cart-Items">
+			<div class="image-box">
+				<img class="basket-img" src="{{b.product.photo.url}}" />
+			</div>
+			<div class="about">
+				<h1 class="basket-title">{{b.product.name}}</h1>
+				<p class="manufacturer">{{b.product.manufacturer}}</p>
+			</div>
+			<div class="counter">
+				<div class="count">{{b.quantity}}</div>
+			</div>
+			<div class="prices">
+				<div class="amount">{%widthratio b.product.price 1 b.quantity%} ₽</div>
+				<div class="remove">
+					<form action="{% url 'b_remove' b.product.pk %}" method="post">
+						<div>
+							{% csrf_token %}
+							{{ add_basket_form }}
+						</div>
+						<input class="product__btn product__btn-one basket-delete" type="submit" value="Удалить">
+					</form>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+
+		{% if request.user.is_authenticated %}
+		<div class="checkout">
+			<div class="total">
+				<div class="total-amount">Общая цена: {{basket.get_total_price}} ₽</div>
+			</div>
+			{% if basket %}
+				<a href="{% url 'o_create' %}"><button type="button" class="product__btn product__btn-one basket-btn">Оформить
+					заказ</button></a>
+			{% endif %}
+		</div>
+		{% endif %}
+	</div>
+	{% endblock %}
